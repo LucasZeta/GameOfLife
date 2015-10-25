@@ -31,6 +31,16 @@ public class GameModelTest extends TestCase {
         assertFalse(model.isAlive(1, 1));
     }
 
+    public void testRule1() throws Exception {
+        model.heal(1, 1);
+        model.heal(1, 2);
+        model.heal(1, 3);
+        assertTrue(model.willLive(1, 2));
+
+        model.kill(1, 3);
+        assertFalse(model.willLive(1, 2));
+    }
+
     public void testRule2() throws Exception {
         model.heal(1, 1);
         model.heal(1, 2);
@@ -43,6 +53,17 @@ public class GameModelTest extends TestCase {
         assertTrue(model.willLive(1, 2));
 
         model.kill(1, 1);
+        assertFalse(model.willLive(1, 2));
+    }
+
+    public void testRule3() throws Exception {
+        model.heal(1, 1);
+        model.heal(1, 2);
+        model.heal(1, 3);
+        model.heal(2, 2);
+        assertTrue(model.willLive(1, 2));
+
+        model.heal(2, 1);
         assertFalse(model.willLive(1, 2));
     }
 
