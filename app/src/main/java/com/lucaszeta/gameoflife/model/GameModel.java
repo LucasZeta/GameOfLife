@@ -31,4 +31,30 @@ public class GameModel {
     public void kill(int row, int column) {
         map[row][column] = false;
     }
+
+    public boolean willLive(int row, int column) {
+        int neighboursAlive = getNeighboursAlive(row, column);
+
+        if (neighboursAlive == 3) {
+            return true;
+        }
+
+        return (isAlive(row, column) && neighboursAlive == 2);
+    }
+
+    private int getNeighboursAlive(int row, int column) {
+        int neighboursAlive = 0;
+
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < columns; ++j) {
+                if (Math.abs(row - i) <= 1 && Math.abs(column - j) <= 1) {
+                    if (isAlive(i, j) && !(row == i && column == j)) {
+                        ++neighboursAlive;
+                    }
+                }
+            }
+        }
+
+        return neighboursAlive;
+    }
 }
