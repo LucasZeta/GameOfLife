@@ -57,4 +57,16 @@ public class GameModel {
 
         return neighboursAlive;
     }
+
+    public void tick() {
+        boolean[][] nextGeneration = new boolean[rows][columns];
+
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < columns; ++j) {
+                nextGeneration[i][j] = willLive(i, j);
+            }
+        }
+
+        map = nextGeneration;
+    }
 }
