@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.lucaszeta.gameoflife.model.GameModel;
+
 public class GameView extends View {
 
     int rows;
@@ -15,6 +17,7 @@ public class GameView extends View {
 
     Paint stroke;
     Paint fill;
+    private GameModel model;
 
     public GameView(Context context) {
         super(context);
@@ -51,7 +54,8 @@ public class GameView extends View {
                 int right = left + size;
                 int bottom = top + size;
 
-                canvas.drawRect(left, top, right, bottom, stroke);
+                Paint paint = model.isAlive(i, j) ? fill : stroke;
+                canvas.drawRect(left, top, right, bottom, paint);
             }
         }
     }
@@ -65,4 +69,9 @@ public class GameView extends View {
         fill.setStyle(Paint.Style.FILL);
         fill.setColor(Color.BLACK);
     }
+
+    public void setModel(GameModel model) {
+        this.model = model;
+    }
+
 }
