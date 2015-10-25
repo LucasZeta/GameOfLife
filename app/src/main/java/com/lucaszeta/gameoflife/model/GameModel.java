@@ -21,15 +21,23 @@ public class GameModel {
     }
 
     public boolean isAlive(int row, int column) {
-        return map[row][column];
+        if (isInBounds(row, column)) {
+            return map[row][column];
+        }
+
+        return false;
     }
 
     public void heal(int row, int column) {
-        map[row][column] = true;
+        if (isInBounds(row, column)) {
+            map[row][column] = true;
+        }
     }
 
     public void kill(int row, int column) {
-        map[row][column] = false;
+        if (isInBounds(row, column)) {
+            map[row][column] = false;
+        }
     }
 
     public boolean willLive(int row, int column) {
@@ -45,17 +53,19 @@ public class GameModel {
     private int getNeighboursAlive(int row, int column) {
         int neighboursAlive = 0;
 
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < columns; ++j) {
-                if (Math.abs(row - i) <= 1 && Math.abs(column - j) <= 1) {
-                    if (isAlive(i, j) && !(row == i && column == j)) {
-                        ++neighboursAlive;
-                    }
+        for (int i = row-1; i <= row + 1; ++i) {
+            for (int j = column - 1; j <= column + 1; ++j) {
+                if (isAlive(i, j) && !(row == i && column == j)) {
+                    ++neighboursAlive;
                 }
             }
         }
 
         return neighboursAlive;
+    }
+
+    private boolean isInBounds(int row, int column) {
+        return row >= 0 && row < rows && column >= 0 && column < columns;
     }
 
     public void tick() {

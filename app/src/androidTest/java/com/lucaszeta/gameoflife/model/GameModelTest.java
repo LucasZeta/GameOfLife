@@ -79,4 +79,15 @@ public class GameModelTest extends TestCase {
         model.heal(1, 3);
         assertTrue(model.willLive(2, 2));
     }
+
+    public void testOutOfBounds() throws Exception {
+        model.heal(-1, 1);
+        assertFalse(model.isAlive(-1, 1));
+
+        model.heal(1, 1);
+        assertTrue(model.isAlive(1, 1));
+
+        model.heal(12, 1);
+        assertFalse(model.isAlive(12, 1));
+    }
 }
