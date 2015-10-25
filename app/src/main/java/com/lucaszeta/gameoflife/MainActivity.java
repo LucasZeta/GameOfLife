@@ -8,6 +8,8 @@ import android.widget.Button;
 import com.lucaszeta.gameoflife.model.GameModel;
 import com.lucaszeta.gameoflife.view.GameView;
 
+import java.util.Random;
+
 public class MainActivity extends Activity implements View.OnClickListener {
 
     GameModel model;
@@ -23,6 +25,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Button refreshButton = (Button) findViewById(R.id.btnRefresh);
 
         model = new GameModel(rows, columns);
+
+        Random r = new Random();
+        int cellsCount = 0;
+
+        do {
+            int row = r.nextInt(rows);
+            int column = r.nextInt(columns);
+
+            if (!model.isAlive(row, column)) {
+                model.heal(row, column);
+                cellsCount++;
+            }
+        } while (cellsCount <= 30);
 
         view.setUp(rows, columns, 20);
         view.setModel(model);
