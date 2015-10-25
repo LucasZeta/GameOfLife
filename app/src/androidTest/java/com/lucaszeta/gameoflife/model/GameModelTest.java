@@ -31,7 +31,7 @@ public class GameModelTest extends TestCase {
         assertFalse(model.isAlive(1, 1));
     }
 
-    public void testRule1() throws Exception {
+    public void testUnderPopulation() throws Exception {
         model.heal(1, 1);
         model.heal(1, 2);
         model.heal(1, 3);
@@ -41,7 +41,7 @@ public class GameModelTest extends TestCase {
         assertFalse(model.willLive(1, 2));
     }
 
-    public void testRule2() throws Exception {
+    public void testSurvival() throws Exception {
         model.heal(1, 1);
         model.heal(1, 2);
         model.heal(1, 3);
@@ -56,7 +56,7 @@ public class GameModelTest extends TestCase {
         assertFalse(model.willLive(1, 2));
     }
 
-    public void testRule3() throws Exception {
+    public void testOverPopulation() throws Exception {
         model.heal(1, 1);
         model.heal(1, 2);
         model.heal(1, 3);
@@ -67,7 +67,7 @@ public class GameModelTest extends TestCase {
         assertFalse(model.willLive(1, 2));
     }
 
-    public void testRule4() throws Exception {
+    public void testReproduction() throws Exception {
         assertFalse(model.willLive(2, 2));
 
         model.heal(1, 1);
