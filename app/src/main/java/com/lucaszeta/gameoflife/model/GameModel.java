@@ -27,4 +27,8 @@ public class GameModel {
     public void heal(int row, int column) {
         map[row][column] = true;
     }
+
+    public void kill(int row, int column) {
+        map[row][column] = false;
+    }
 }

@@ -22,4 +22,12 @@ public class GameModelTest extends TestCase {
         model.heal(1, 1);
         assertTrue(model.isAlive(1, 1));
     }
+
+    public void testIsDead() throws Exception {
+        model.heal(1, 1);
+        assertTrue(model.isAlive(1, 1));
+
+        model.kill(1, 1);
+        assertFalse(model.isAlive(1, 1));
+    }
 }
