@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
 
         int rows = 20;
         int columns = 15;
+        int cellSize = 40;
         final int numCells = 30;
 
         GameView view = (GameView) findViewById(R.id.gameView);
@@ -27,7 +28,7 @@ public class MainActivity extends Activity {
         model = new GameModel(rows, columns);
         model.seed(numCells);
 
-        view.setUp(rows, columns, 20);
+        view.setUp(rows, columns, cellSize);
         view.setModel(model);
 
         nextGenButton.setOnClickListener(new View.OnClickListener() {
