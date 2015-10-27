@@ -1,5 +1,7 @@
 package com.lucaszeta.gameoflife.model;
 
+import java.util.Random;
+
 public class GameModel {
     private int rows;
     private int columns;
@@ -9,7 +11,7 @@ public class GameModel {
         this.rows = rows;
         this.columns = columns;
 
-        map = new boolean[rows][columns];
+        initMap();
     }
 
     public int getColumns() {
@@ -78,5 +80,26 @@ public class GameModel {
         }
 
         map = nextGeneration;
+    }
+
+    public void seed(int maxCells) {
+        initMap();
+
+        Random r = new Random();
+        int cellsCount = 0;
+
+        do {
+            int row = r.nextInt(rows);
+            int column = r.nextInt(columns);
+
+            if (!isAlive(row, column)) {
+                heal(row, column);
+                cellsCount++;
+            }
+        } while (cellsCount < maxCells);
+    }
+
+    private void initMap() {
+        map = new boolean[rows][columns];
     }
 }
