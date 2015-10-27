@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GameOfLife</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="next_generation">Next Generation</string>
+    <string name="refresh">Refresh</string>
 </resources>
