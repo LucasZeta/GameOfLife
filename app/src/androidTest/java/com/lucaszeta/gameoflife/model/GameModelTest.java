@@ -90,4 +90,28 @@ public class GameModelTest extends TestCase {
         model.heal(12, 1);
         assertFalse(model.isAlive(12, 1));
     }
+
+    public void testSeed() throws Exception {
+        assertEquals(0, getNumCellsAlive());
+
+        model.seed(20);
+        assertEquals(20, getNumCellsAlive());
+
+        model.seed(15);
+        assertEquals(15, getNumCellsAlive());
+    }
+
+    private int getNumCellsAlive() {
+        int cellsAlive = 0;
+
+        for (int i = 0; i < model.getRows(); ++i) {
+            for (int j = 0; j < model.getColumns(); ++j) {
+                if (model.isAlive(i, j)) {
+                    ++cellsAlive;
+                }
+            }
+        }
+
+        return cellsAlive;
+    }
 }
