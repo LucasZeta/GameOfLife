@@ -8,9 +8,7 @@ import android.widget.Button;
 import com.lucaszeta.gameoflife.model.GameModel;
 import com.lucaszeta.gameoflife.view.GameView;
 
-import java.util.Random;
-
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity {
 
     GameModel model;
 
@@ -21,34 +19,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         int rows = 20;
         int columns = 15;
+        final int numCells = 30;
+
         GameView view = (GameView) findViewById(R.id.gameView);
         Button refreshButton = (Button) findViewById(R.id.btnRefresh);
-
+        Button nextGenButton = (Button) findViewById(R.id.btnNextGeneration);
         model = new GameModel(rows, columns);
-
-        Random r = new Random();
-        int cellsCount = 0;
-
-        do {
-            int row = r.nextInt(rows);
-            int column = r.nextInt(columns);
-
-            if (!model.isAlive(row, column)) {
-                model.heal(row, column);
-                cellsCount++;
-            }
-        } while (cellsCount <= 30);
+        model.seed(numCells);
 
         view.setUp(rows, columns, 20);
         view.setModel(model);
 
-        refreshButton.setOnClickListener(this);
-    }
+        nextGenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                model.tick();
+                findViewById(R.id.gameView).invalidate();
+            }
+        });
 
-    @Override
-    public void onClick(View v) {
-        model.tick();
-
-        findViewById(R.id.gameView).invalidate();
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                model.seed(numCells);
+                findViewById(R.id.gameView).invalidate();
+            }
+        });
     }
 }
