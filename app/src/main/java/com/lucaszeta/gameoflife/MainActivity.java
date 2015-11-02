@@ -10,31 +10,29 @@ import com.lucaszeta.gameoflife.view.GameView;
 
 public class MainActivity extends Activity {
 
-    GameModel model;
+    int rows = 20;
+    int columns = 15;
+    int numCells = 30;
+    static GameModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        int rows = 20;
-        int columns = 15;
         int cellSize = 40;
-        final int numCells = 30;
 
         GameView view = (GameView) findViewById(R.id.gameView);
         Button refreshButton = (Button) findViewById(R.id.btnRefresh);
         Button nextGenButton = (Button) findViewById(R.id.btnNextGeneration);
-        model = new GameModel(rows, columns);
-        model.seed(numCells);
 
         view.setUp(rows, columns, cellSize);
-        view.setModel(model);
+        view.setModel(getGameModel());
 
         nextGenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                model.tick();
+                getGameModel().tick();
                 findViewById(R.id.gameView).invalidate();
             }
         });
@@ -42,9 +40,18 @@ public class MainActivity extends Activity {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                model.seed(numCells);
+                getGameModel().seed(numCells);
                 findViewById(R.id.gameView).invalidate();
             }
         });
+    }
+
+    private GameModel getGameModel() {
+        if (MainActivity.model == null) {
+            MainActivity.model = new GameModel(rows, columns);
+            MainActivity.model.seed(numCells);
+        }
+
+        return MainActivity.model;
     }
 }
